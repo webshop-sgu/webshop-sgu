@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <meta charset="utf-8" />
+    <link type="text/css" rel="stylesheet" href="/Stylesheets/style.less" media="all"  />
+    <script type="text/javascript" src="/Scripts/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="/Scripts/scripts.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            var categories_top = jQuery("#categories").offset().top;
+            var user_bar_height = jQuery("#user-bar").height();
+            var menu_margin = 5;
+
+            jQuery(window).scroll(function () {
+                var y = jQuery(window).scrollTop();
+                if (y > categories_top - user_bar_height) {
+                    if (!jQuery("#categories").hasClass("fixed")) {
+                        jQuery("#categories").css("top", (user_bar_height + menu_margin) + 'px');
+                        jQuery("#categories").addClass("fixed");
+                    }
+                } else {
+                    if (jQuery("#categories").hasClass("fixed")) {
+                        jQuery("#categories").css("top", 0 + 'px');
+                        jQuery("#categories").removeClass("fixed");
+                    }
+                }
+            });
+
+            jQuery("#btnLogin").click(function () {
+                if (!jQuery("#btnLogin").hasClass("activated")) {
+                    jQuery("#btnLogin").addClass("activated");
+                    jQuery("#login-box").slideToggle("fast");
+                } else {
+                    jQuery("#login-box").slideToggle("fast", function () {
+                        jQuery("#btnLogin").toggleClass("activated");
+                    });
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="user-bar">
+        <div id="wrapper">
+            <span>Company logo</span>
+            <ul>
+                <li><a href="">Đăng kí</a></li>
+                <li>
+                    <a id="btnLogin">Đăng nhập</a>
+                    <div id="login-box">
+                        <form>
+                            <input id="login-username" type="text" value="" placeholder="email hoặc tên đăng nhập" />
+                            <input id="login-password" type="password" value="" placeholder="mật khẩu" />
+                            <input id="login-submit" type="submit" value="Đăng nhập" />
+                            <label><input type="checkbox" />Ghi nhớ?</label>
+                        </form>
+                    </div>
+                </li>
+                <li><a href="">Giỏ hàng</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="container">
+        <header>
+            <nav>
+                <ul>
+                    <li><a class="activated" href="/">Trang chủ</a></li>
+                    <li><a href="">Liên hệ</a></li>
+                    <li>@Html.ActionLink("Giới thiệu", "About")</li>
+                </ul>
+            </nav>
+            <div id="main-silde">
+                <div>Slide goes here</div>
+            </div>
+            @if (ViewBag.ShowSearchBox != null && ViewBag.ShowSearchBox == true)
+            {
+                <div id="search-box">Search box</div>
+            }
+        </header>
+        <div id="categories_wraper">
+            <aside id="categories">
+                <p>Danh mục</p>
+                <ul>
+                    <li><a href="#">Quạt điện</a></li>
+                    <li><a href="#">Tủ lạnh</a></li>
+                    <li><a href="#">Máy giặt</a></li>
+                    <li><a href="#">Hút bụi</a></li>
+                    <li><a href="#">Bếp từ</a></li>
+                </ul>
+            </aside>
+        </div>
+        <div id="content">
+            @RenderBody()
+        </div>
+        <footer>
+            Copyleft © 2013 <strong>Nhóm XYZ</strong>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "Trang chủ";
+}
+
+<p>Đây là trang chủ</p>
+
+<p><strong>Roles in system</strong></p>
+@foreach (var r in ViewBag.Roles)
+{
+    <p>@r.Id | @r.Name</p>
+}
+
+<p><strong>Users in system</strong></p>
+@foreach (var u in ViewBag.Users)
+{
+    <p>@u.Username | @u.Email | @u.Role.Name</p>
+}
+
+<p><strong>Managers in system</strong></p>
+@foreach (var u in ViewBag.RoleAsManager.Users)
+{
+    <p>@u.Username | @u.Email</p>
+}
+
+<p><strong>Administrator logs</strong></p>
+@foreach (var l in ViewBag.AdminLogs)
+{
+    <p>@l.Message</p>
+}
+
+@for (var i = 0; i < 10; ++i)
+{
+    <br />
+}
+
+END
